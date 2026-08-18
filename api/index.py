@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 # ENV Variables
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 BOT_USERNAME = os.environ.get("BOT_USERNAME", "")
-MINI_APP_SHORT_NAME = os.environ.get("MINI_APP_SHORT_NAME", "")
+MINI_APP_SHORT_NAME = os.environ.get("MINI_APP_SHORT_NAME", "ICOS")
 
 app = FastAPI(title="ICOS Serverless API")
 
