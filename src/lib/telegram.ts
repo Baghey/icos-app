@@ -1,6 +1,14 @@
 // frontend/src/lib/telegram.ts
 import WebApp from '@twa-dev/sdk';
 
+declare global {
+  interface Window {
+    Telegram?: {
+      WebApp?: any;
+    };
+  }
+}
+
 export const isTelegram = typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData !== '';
 
 export const initTelegram = () => {
@@ -37,7 +45,7 @@ export const setCloudStorageItem = async (key: string, value: string): Promise<b
         console.error('CloudStorage Error:', err);
         resolve(false);
       } else {
-        resolve(success);
+        resolve(!!success);
       }
     });
   });

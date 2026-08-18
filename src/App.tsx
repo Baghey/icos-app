@@ -1,12 +1,12 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
-  TrendingUp, TrendingDown, DollarSign, ShoppingCart, Truck, RotateCcw,
-  PhoneCall, Package, AlertTriangle, CheckCircle2, XCircle, HelpCircle,
-  Info, RefreshCw, Calculator, ArrowRight, Share2, Copy, Check, Percent,
-  Sliders, BarChart3, Globe, Zap, ShieldAlert, Sparkles, Layers
+  DollarSign, Truck, Package, AlertTriangle, CheckCircle2, XCircle,
+  Calculator, Share2, Check, Percent,
+  BarChart3, Globe, Zap
 } from 'lucide-react';
-import { calculateProfit, CalculatorInputs } from './lib/calculator';
-import { initTelegram, isTelegram, getCloudStorageItem, setCloudStorageItem, shareToTopic } from './lib/telegram';
+import { calculateProfit } from './lib/calculator';
+import type { CalculatorInputs } from './lib/calculator';
+import { initTelegram, setCloudStorageItem, shareToTopic, getCloudStorageItem } from './lib/telegram';
 
 export default function App() {
   const [lang, setLang] = useState('fr');
@@ -30,7 +30,6 @@ export default function App() {
     totalLeads: 100,
   });
   
-  const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
   
   // Setup Telegram & Load Data
