@@ -21,7 +21,7 @@ export default function App() {
     shippingPayer: 'seller',
     customerShippingContrib: 300,
     codPercentage: 2,
-    extraFee: 100,
+    packagingFee: 0,
     adCurrency: 'USD',
     adInputMode: 'cpa',
     adValue: 2.5,
@@ -291,6 +291,19 @@ export default function App() {
                   <div>
                     <label className="block text-xs text-slate-300 mb-1">{lang === 'fr' ? 'COD (%)' : 'نسبة COD'}</label>
                     <input type="number" step="0.5" value={inputs.codPercentage} onChange={e => updateInput('codPercentage', Number(e.target.value))} className="w-full bg-slate-900 border border-slate-700 focus:border-orange-500 rounded-lg px-3 py-2 text-sm font-mono outline-none" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-3 pt-3 mt-3 border-t border-slate-800">
+                  <div>
+                    <label className="block text-xs text-slate-300 mb-1">{lang === 'fr' ? 'Frais Emballage' : 'تكلفة التغليف'}</label>
+                    <input type="number" value={inputs.packagingFee} onChange={e => updateInput('packagingFee', Number(e.target.value))} className="w-full bg-slate-900 border border-slate-700 focus:border-orange-500 rounded-lg px-3 py-2 text-sm font-mono outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-slate-300 mb-1">{lang === 'fr' ? 'Livraison payée par' : 'الشحن مدفوع من طرف'}</label>
+                    <select value={inputs.shippingPayer} onChange={e => updateInput('shippingPayer', e.target.value)} className="w-full bg-slate-900 border border-slate-700 focus:border-orange-500 rounded-lg px-3 py-2 text-sm outline-none">
+                      <option value="seller">{lang === 'fr' ? 'Vendeur (Gratuit pour client)' : 'البائع (مجاني للزبون)'}</option>
+                      <option value="customer">{lang === 'fr' ? 'Client (Payant)' : 'الزبون (مدفوع)'}</option>
+                    </select>
                   </div>
                 </div>
               </div>

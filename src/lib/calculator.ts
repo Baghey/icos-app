@@ -9,7 +9,7 @@ export interface CalculatorInputs {
   shippingPayer: "seller" | "customer" | "shared";
   customerShippingContrib: number;
   codPercentage: number;
-  extraFee: number;
+  packagingFee: number;
   adCurrency: "DZD" | "USD" | "EUR";
   adInputMode: "cpa" | "total";
   adValue: number;
@@ -32,7 +32,7 @@ export interface CalculatorResult {
   totalShippingCostSeller: number;
   totalReturnCost: number;
   totalCallCenterCost: number;
-  totalExtraCost: number;
+  totalPackagingCost: number;
   totalCodFee: number;
   totalOpsCost: number;
   netProfitTotal: number;
@@ -96,9 +96,9 @@ export function calculateProfit(input: CalculatorInputs): CalculatorResult {
   const totalBuyingCost = deliveredOrders * (Number(input.buyingCost) || 0);
   const totalReturnCost = returnedOrders * (Number(input.returnFee) || 0);
   const totalCallCenterCost = confirmedOrders * (Number(input.callCenterFee) || 0);
-  const totalExtraCost = deliveredOrders * (Number(input.extraFee) || 0);
+  const totalPackagingCost = confirmedOrders * (Number(input.packagingFee) || 0);
 
-  const totalOpsCost = totalBuyingCost + totalShippingCostSeller + totalReturnCost + totalCallCenterCost + totalExtraCost + totalCodFee;
+  const totalOpsCost = totalBuyingCost + totalShippingCostSeller + totalReturnCost + totalCallCenterCost + totalPackagingCost + totalCodFee;
 
   const grossProfitBeforeAds = totalRevenue - totalOpsCost;
   const netProfitTotal = grossProfitBeforeAds - totalAdSpendDZD;
@@ -112,18 +112,12 @@ export function calculateProfit(input: CalculatorInputs): CalculatorResult {
   const breakEvenCpaLeadUSD = breakEvenCpaLeadDZD / (Number(input.usdRate) || 1);
 
   const codPct = (Number(input.codPercentage) || 0) / 100;
-  const totalFixedOps = totalBuyingCost + totalShippingCostSeller + totalReturnCost + totalCallCenterCost + totalExtraCost + totalAdSpendDZD;
+  const totalFixedOps = totalBuyingCost + totalShippingCostSeller + totalReturnCost + totalCallCenterCost + totalPackagingCost + totalAdSpendDZD;
   const breakEvenSellingPrice = (deliveredOrders > 0 && (1 - codPct) > 0)
     ? (totalFixedOps / deliveredOrders) / (1 - codPct)
     : 0;
 
   // Calcul mathématiquement exact pour le Target Margin (25%)
-  // Profit = Rev - Ops
-  // Profit = MarginTarget * Rev
-  // Rev * (1 - MarginTarget) = FixedOps + (Rev * codPct)
-  // Rev * (1 - MarginTarget - codPct) = FixedOps
-  // Price * N_liv * (1 - MarginTarget - codPct) = FixedOps
-  // Price = FixedOps / (N_liv * (1 - MarginTarget - codPct))
   const targetMargin = 0.25;
   let suggestedSellingPrice = 0;
   const marginDenominator = 1 - targetMargin - codPct;
@@ -158,7 +152,7 @@ export function calculateProfit(input: CalculatorInputs): CalculatorResult {
     totalShippingCostSeller,
     totalReturnCost,
     totalCallCenterCost,
-    totalExtraCost,
+    totalPackagingCost,
     totalCodFee,
     totalOpsCost,
     netProfitTotal,
