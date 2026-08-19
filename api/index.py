@@ -75,7 +75,7 @@ async def telegram_webhook(request: Request):
 
         keyboard_button = {
             "inline_keyboard": [[
-                {"text": "🚀 OUVRIR LE CALCULATEUR", "url": mini_app_url("calcul")}
+                {"text": "🚀 OUVRIR LE CALCULATEUR", "web_app": {"url": "https://icos-app.vercel.app/"}}
             ]]
         }
 
