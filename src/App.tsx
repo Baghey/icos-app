@@ -311,9 +311,9 @@ export default function App() {
                {/* Pub */}
                <div className="bg-[#161a24] p-4 rounded-xl border border-slate-800">
                 <div className="text-xs font-bold text-orange-400 uppercase tracking-wider flex items-center gap-1.5 mb-3">
-                  <DollarSign className="w-4 h-4" /> {lang === 'fr' ? 'Publicité' : 'الإعلانات'}
+                  <DollarSign className="w-4 h-4" /> {lang === 'fr' ? 'Publicité & Taux de Change' : 'الإعلانات وسعر الصرف'}
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3 mb-3">
                   <div>
                     <label className="block text-xs text-slate-300 mb-1">{lang === 'fr' ? 'CPA par Lead ($)' : 'CPA ($)'}</label>
                     <input type="number" step="0.1" value={inputs.adValue} onChange={e => updateInput('adValue', Number(e.target.value))} className="w-full bg-slate-900 border border-orange-500/50 focus:border-orange-500 rounded-lg px-3 py-2 text-sm font-mono text-orange-400 font-bold outline-none" />
@@ -322,6 +322,10 @@ export default function App() {
                      <label className="block text-xs text-slate-300 mb-1">{lang === 'fr' ? 'Nombre Leads' : 'عدد الطلبات الكلي'}</label>
                     <input type="number" value={inputs.totalLeads} onChange={e => updateInput('totalLeads', Number(e.target.value))} className="w-full bg-slate-900 border border-slate-700 focus:border-orange-500 rounded-lg px-3 py-2 text-sm font-mono outline-none" />
                   </div>
+                </div>
+                <div className="pt-3 border-t border-slate-800">
+                  <label className="block text-xs text-slate-300 mb-1">{lang === 'fr' ? 'Taux USDT (1$ = ? DZD)' : 'سعر صرف USDT'}</label>
+                  <input type="number" value={inputs.usdRate} onChange={e => updateInput('usdRate', Number(e.target.value))} className="w-full bg-slate-900 border border-slate-700 focus:border-orange-500 rounded-lg px-3 py-2 text-sm font-mono outline-none" />
                 </div>
               </div>
 
